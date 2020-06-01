@@ -19,8 +19,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -73,6 +78,9 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
     public static byte [] b_enc2 = null;
     public static byte [] c_enc2 = null;
 
+    public String sensor_func = "";
+    public int percentage = 0;
+    public String scenario="";
 
     public static int s_position=0;
 
@@ -137,9 +145,8 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                     builder.setTitle("센서 암호화 설정");
                     int sensorType_num = sensor.get(position).getType(); //센서 타입 번호
                     String sensorType = "";
-                    String sensor_func = "";
 
-                    int percentage = 20; //나중에 데이터베이스에서 값 가져와서 넣기...
+                    //int percentage = 20; //나중에 데이터베이스에서 값 가져와서 넣기...
 
                     if(sensorType_num==1){
                         sensorType = "TYPE_ACCELEROMETER";
@@ -161,6 +168,7 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                     }
                     else if(sensorType_num==19){
                         sensorType = "TYPE_STEP_COUNTER";
+                        //readSenor(sensorType);
                         sensor_func = "그리고 사용자의 발걸음을 감지하고 카운팅하는 센서입니다.";
                     }
                     else{
@@ -168,13 +176,15 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                         sensor_func = "";
                     }
 
-                    builder.setMessage("선택하신 센서의 타입은 " + sensorType + "입니다.\n" + sensor_func +
+                    builder.setMessage("선택하신 센서의 타입은 " + sensorType + "입니다.\n" + sensor_func + "\n 침해 시나리오 : "+ scenario +
                             "\n해당 센서에 대해 암호화를 설정하시겠습니까?\n\n" + "해당 센서에 대한 암호화 설정 통계 수치 : " + percentage + "%");
 
                     builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //데이터 베이스에 정보 넘겨주기...코드 추가
+
+                            databaseReference.child("Sensor").push().setValue("50");
                         }
                     });
 
@@ -195,6 +205,34 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
 
         return view;
     }
+
+    //추가한 함수부분
+    /*private void readSenor(String type){
+
+        int ref = 1;
+        databaseReference.child("Sensor").child(type).setValue(ref); //event발생
+
+        databaseReference.child("Sensor").child(type).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue(Sensor_info.class) != null){
+                    Sensor_info post = dataSnapshot.getValue(Sensor_info.class);
+                    //Log.w("FireBaseData", "getData" + post.toString());
+                    sensor_func = post.getDescription();
+                    percentage = post.getPercentage();
+                    scenario = post.getScenario();
+                } else {
+                    //Toast.makeText(MainActivity.this, "데이터 없음...", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }*/
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {

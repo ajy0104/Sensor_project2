@@ -88,7 +88,7 @@ public class mediumActivity extends AppCompatActivity implements SensorEventList
         sensorData = new ArrayList<String>();
 
         for(int i = 0;i<sensor.size();i++){
-            sensorData.add(sensor.get(i).getName());
+            sensorData.add(sensor.get(i).getName() + sensor.get(i).getType());
         }
 
         sensorList = findViewById(R.id.sensorLIst);
