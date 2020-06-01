@@ -40,7 +40,7 @@ import static com.example.myapplication.co.amcn.ppcl.ppclSeed.PPCLSeed.encrypt;
 public class highActivity extends AppCompatActivity implements SensorEventListener{
 
 
-    //hihihi
+    //hihihihihi
 
     public static String charset = "utf-8";
 
