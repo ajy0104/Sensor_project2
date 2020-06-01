@@ -67,6 +67,7 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
+    //
 
     public static byte [] a_enc2 = null;
     public static byte [] b_enc2 = null;
