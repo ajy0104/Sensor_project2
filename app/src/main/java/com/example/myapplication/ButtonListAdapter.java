@@ -65,6 +65,10 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
     //public static String dec_string = "";
     private Switch switchView;
 
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
+    //
+
     public static byte [] a_enc2 = null;
     public static byte [] b_enc2 = null;
     public static byte [] c_enc2 = null;
