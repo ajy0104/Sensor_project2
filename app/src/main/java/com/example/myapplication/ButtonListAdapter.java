@@ -19,6 +19,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -61,6 +64,9 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
     private String str_default="일반적인 센서가 아닙니다.";
     //public static String dec_string = "";
     private Switch switchView;
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     public static byte [] a_enc2 = null;
     public static byte [] b_enc2 = null;
