@@ -39,9 +39,6 @@ import static com.example.myapplication.co.amcn.ppcl.ppclSeed.PPCLSeed.encrypt;
 
 public class highActivity extends AppCompatActivity implements SensorEventListener{
 
-
-    //hihi
-
     public static String charset = "utf-8";
 
     //비밀키(암호화 대칭키)
