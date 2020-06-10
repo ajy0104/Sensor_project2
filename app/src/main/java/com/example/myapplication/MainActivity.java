@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         Button nextBtn = (Button)findViewById(R.id.nextBtn);
         TextView textView = (TextView)findViewById(R.id.txtTitle);
 
-        textView.setText("암호화 강도 선택");
+        //textView.setText("Select Encryption Level");
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
