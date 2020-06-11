@@ -79,7 +79,7 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
     public static byte [] c_enc2 = null;
 
     public String sensor_func = "";
-    public int percentage = 0;
+    public int percentage = 70;
     public String scenario="";
 
     public static int s_position=0;
@@ -152,24 +152,29 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                         sensorType = "TYPE_ACCELEROMETER";
                         sensor_func = "그리고 이동에 따른 가속도를 감지하고 이 센서를 통해 스마트폰의 움직임을 확인할 수 있고, " +
                                 "만보계 앱, 나침반 앱 등을 구현할 수 있습니다.";
+                        scenario = "당신의 움직임을 숨길 수 없습니다.";
                     }
                     else if(sensorType_num==4){
                         sensorType = "TYPE_GYROSCOPE";
                         sensor_func = "그리고 물체의 회전각을 감지해 " +
                                 "레이싱 게임 앱에서 스마트폰을 기울여서 자동차의 방향을 바꿀 수 있습니다.";
+                        scenario = "당신의 휴대폰 사용 여부를 숨길 수 없습니다.";
                     }
                     else if(sensorType_num==5){
                         sensorType = "TYPE_LIGHT";
                         sensor_func = "그리고 빛의 세기를 감지하는 센서입니다.";
+                        scenario = "당신이 있는 공간의 밝기를 숨길 수 없습니다.";
                     }
                     else if(sensorType_num==9){
                         sensorType = "TYPE_GRAVITY";
                         sensor_func = "그리고 축의 방향 및 중력을 감지합니다.";
+                        scenario = "당신의 휴대폰 사용 여부를 숨길 수 없습니다.";
                     }
                     else if(sensorType_num==19){
                         sensorType = "TYPE_STEP_COUNTER";
                         //readSenor(sensorType);
                         sensor_func = "그리고 사용자의 발걸음을 감지하고 카운팅하는 센서입니다.";
+                        scenario = "당신의 이동 횟수를 숨길 수 없습니다.";
                     }
                     else{
                         sensorType = "특수한 센서";

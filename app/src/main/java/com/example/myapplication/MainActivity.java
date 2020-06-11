@@ -42,18 +42,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(choice.equals("전체암호")) {
+                if(choice.equals(" ALL")) {
                     Intent i = new Intent(MainActivity.this, highActivity.class);
                     //i.putExtra("level", choice); //level 전달
                     startActivity(i); //인텐트 전달
                 }
 
-                else if(choice.equals("선택암호")){
+                else if(choice.equals(" OPTIONAL")){
                     Intent i = new Intent(MainActivity.this, mediumActivity.class);
                     //i.putExtra("level", choice); //level 전달
                     startActivity(i); //인텐트 전달
                 }
-                else if(choice.equals("암호화하지 않음")){
+                else if(choice.equals(" NONE")){
                     Intent i = new Intent(MainActivity.this, lowActivity.class);
                     //i.putExtra("level", choice);
                     startActivity(i);
