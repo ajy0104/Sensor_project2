@@ -142,7 +142,7 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                 if(isChecked){
                     //check 되었을 때
                     AlertDialog.Builder builder = new AlertDialog.Builder(buttonView.getContext());
-                    builder.setTitle("센서 암호화 설정");
+                    builder.setTitle("센서 암호화 설정").setIcon(R.drawable.shield);
                     int sensorType_num = sensor.get(position).getType(); //센서 타입 번호
                     String sensorType = "";
 
