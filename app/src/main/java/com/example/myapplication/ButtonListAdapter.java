@@ -142,7 +142,7 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                 if(isChecked){
                     //check 되었을 때
                     AlertDialog.Builder builder = new AlertDialog.Builder(buttonView.getContext());
-                    builder.setTitle("센서 암호화 설정").setIcon(R.drawable.shield);
+                    builder.setTitle("Sensor Encryption Settings").setIcon(R.drawable.shield);
                     int sensorType_num = sensor.get(position).getType(); //센서 타입 번호
                     String sensorType = "";
 
@@ -152,8 +152,8 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                         // 영어로 설명 바꿈
                         sensorType = "TYPE_ACCELEROMETER";
                         sensor_func = "It detects the accleration due to movement and can check the movement of the smartphones." +
-                                "It can be implemented pedometer apps and compass apps";
-                        scenario = "Yon can't hide movement";
+                                "It can be implemented pedometer apps and compass apps.";
+                        scenario = "Yon can't hide movement.";
                     }
                     else if(sensorType_num==4){
                         sensorType = "TYPE_GYROSCOPE";
@@ -183,10 +183,10 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                     }
 
                     // 이 부분도 영어로 수정함!
-                    builder.setMessage("Sensor_Type : " + sensorType + "\n" + "Description : "+sensor_func + "\nPrivacy Risk : "+ scenario +
+                    builder.setMessage("Sensor_Type : " + sensorType + "\n" + "\nDescription : \n"+sensor_func+ "\n\nPrivacy Risk : "+ scenario +
                             "\n\nWould you like to set encryption for this sensor?\n\n" + "Statistics of encryption settings for the sensor : " + percentage + "%");
 
-                    builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //데이터 베이스에 정보 넘겨주기...코드 추가
@@ -195,7 +195,7 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                         }
                     });
 
-                    builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //스위치 off
