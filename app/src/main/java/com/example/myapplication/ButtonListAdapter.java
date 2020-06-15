@@ -149,10 +149,11 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                     //int percentage = 20; //나중에 데이터베이스에서 값 가져와서 넣기...
 
                     if(sensorType_num==1){
+                        // 영어로 설명 바꿈
                         sensorType = "TYPE_ACCELEROMETER";
-                        sensor_func = "그리고 이동에 따른 가속도를 감지하고 이 센서를 통해 스마트폰의 움직임을 확인할 수 있고, " +
-                                "만보계 앱, 나침반 앱 등을 구현할 수 있습니다.";
-                        scenario = "당신의 움직임을 숨길 수 없습니다.";
+                        sensor_func = "It detects the accleration due to movement and can check the movement of the smartphones." +
+                                "It can be implemented pedometer apps and compass apps";
+                        scenario = "Yon can't hide movement";
                     }
                     else if(sensorType_num==4){
                         sensorType = "TYPE_GYROSCOPE";
@@ -181,8 +182,9 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                         sensor_func = "";
                     }
 
-                    builder.setMessage("선택하신 센서의 타입은 " + sensorType + "입니다.\n" + sensor_func + "\n 침해 시나리오 : "+ scenario +
-                            "\n해당 센서에 대해 암호화를 설정하시겠습니까?\n\n" + "해당 센서에 대한 암호화 설정 통계 수치 : " + percentage + "%");
+                    // 이 부분도 영어로 수정함!
+                    builder.setMessage("Sensor_Type : " + sensorType + "\n" + "Description : "+sensor_func + "\nPrivacy Risk : "+ scenario +
+                            "\n\nWould you like to set encryption for this sensor?\n\n" + "Statistics of encryption settings for the sensor : " + percentage + "%");
 
                     builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                         @Override
