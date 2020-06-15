@@ -79,7 +79,7 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
     public static byte [] c_enc2 = null;
 
     public String sensor_func = "";
-    public int percentage = 70;
+    public double percentage = 12.1;
     public String scenario="";
 
     public static int s_position=0;
