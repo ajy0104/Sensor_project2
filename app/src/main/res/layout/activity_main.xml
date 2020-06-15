@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:background="@color/colorAccent"
+            android:background="#FF90EE90"
             android:text="next"
             android:textSize="18sp"
             android:textStyle="bold" />
