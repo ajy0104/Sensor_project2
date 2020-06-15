@@ -151,8 +151,8 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                     if(sensorType_num==1){
                         // 영어로 설명 바꿈
                         sensorType = "TYPE_ACCELEROMETER";
-                        sensor_func = "It detects the accleration due to movement and can check the movement of the smartphones." +
-                                "It can be implemented pedometer apps and compass apps.";
+                        sensor_func = "It detects the acceleration due to movement and can check the movement of the smartphones." +
+                        "It can be implemented pedometer apps and compass apps.";
                         scenario = "Yon can't hide movement.";
                     }
                     else if(sensorType_num==4){
