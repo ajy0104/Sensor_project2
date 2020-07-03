@@ -156,32 +156,33 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                     if(sensorType_num==1){
                         // 영어로 설명 바꿈
                         sensorType = "TYPE_ACCELEROMETER";
-                        //databaseReference.child(sensorType).child("Percentage").setValue(12.1);
-                        databaseReference.child("UX_Sensor_List").push().setValue("13");
+                        databaseReference.child("UX_Sensor_List").child(sensorType).child("Percentage").setValue("12.1");
                         sensor_func = "It detects the acceleration due to movement and can check the movement of the smartphones." +
                         "It can be implemented pedometer apps and compass apps.";
                         scenario = "Yon can't hide movement.";
                     }
                     else if(sensorType_num==4){
                         sensorType = "TYPE_GYROSCOPE";
-                        databaseReference.child(sensorType);
+                        databaseReference.child("UX_Sensor_List").child(sensorType).child("Percentage").setValue("15.9");
                         sensor_func = "그리고 물체의 회전각을 감지해 " +
                                 "레이싱 게임 앱에서 스마트폰을 기울여서 자동차의 방향을 바꿀 수 있습니다.";
                         scenario = "당신의 휴대폰 사용 여부를 숨길 수 없습니다.";
                     }
                     else if(sensorType_num==5){
                         sensorType = "TYPE_LIGHT";
+                        databaseReference.child("UX_Sensor_List").child(sensorType).child("Percentage").setValue("18.7");
                         sensor_func = "그리고 빛의 세기를 감지하는 센서입니다.";
                         scenario = "당신이 있는 공간의 밝기를 숨길 수 없습니다.";
                     }
                     else if(sensorType_num==9){
                         sensorType = "TYPE_GRAVITY";
+                        databaseReference.child("UX_Sensor_List").child(sensorType).child("Percentage").setValue("23.4");
                         sensor_func = "그리고 축의 방향 및 중력을 감지합니다.";
                         scenario = "당신의 휴대폰 사용 여부를 숨길 수 없습니다.";
                     }
                     else if(sensorType_num==19){
                         sensorType = "TYPE_STEP_COUNTER";
-                        //readSenor(sensorType);
+                        databaseReference.child("UX_Sensor_List").child(sensorType).child("Percentage").setValue("10.3");
                         sensor_func = "그리고 사용자의 발걸음을 감지하고 카운팅하는 센서입니다.";
                         scenario = "당신의 이동 횟수를 숨길 수 없습니다.";
                     }
