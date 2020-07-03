@@ -200,6 +200,21 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                         sensor_func = "";
                     }
 
+                    databaseReference.child("UX_Sensor_List").child(sensorType).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                get_desc = dataSnapshot.child("Description").getValue().toString();
+                                get_percentage = (double)(dataSnapshot.child("Percentage").getValue());
+                                get_scenario = dataSnapshot.child("Scenario").getValue().toString();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                     // 이 부분도 영어로 수정함!
                     //firebase에서 데이터 가져와서 변수에 저장하자.
                     builder.setMessage("Sensor_Type : " + sensorType + "\n" + "\nDescription : "+ get_desc +"\n"+ "\n\nPrivacy Risk : "+ get_scenario +
@@ -252,53 +267,24 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
 
         //firebase 데이터 snapshot(listener)
 
-        ValueEventListener postListener = new ValueEventListener() {
+        /*databaseReference.child("UX_Sensor_List").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot sensorData : dataSnapshot.getChildren()){
-                    get_desc = sensorData.getValue().toString();
-                    get_percentage = (double)(sensorData.getValue());
-                    get_scenario = sensorData.getValue().toString();
-                }
+                Sensor_info sensor_info = dataSnapshot.getValue(Sensor_info.class);
+                get_desc = sensor_info.getDescription();
+                get_percentage = sensor_info.getPercentage();
+                get_scenario = sensor_info.getScenario();
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        };
-
-        databaseReference.child("UX_Sensor_List").addValueEventListener(postListener);
+        });*/
 
         return view;
     }
-
-    //추가한 함수부분
-    /*private void readSenor(String type){
-
-        int ref = 1;
-        databaseReference.child("Sensor").child(type).setValue(ref); //event발생
-
-        databaseReference.child("Sensor").child(type).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue(Sensor_info.class) != null){
-                    Sensor_info post = dataSnapshot.getValue(Sensor_info.class);
-                    //Log.w("FireBaseData", "getData" + post.toString());
-                    sensor_func = post.getDescription();
-                    percentage = post.getPercentage();
-                    scenario = post.getScenario();
-                } else {
-                    //Toast.makeText(MainActivity.this, "데이터 없음...", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }*/
 
 
     @Override

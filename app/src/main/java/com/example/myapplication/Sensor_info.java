@@ -4,42 +4,31 @@ public class Sensor_info {
 
     public String Description;
     public String Scenario;
-    public int Percentage;
-    public int ref;
+    public double Percentage;
 
-    public Sensor_info(){
+    public Sensor_info() {
 
     }
 
-    public Sensor_info(String Description, String Scenario, int Percentage, int ref){
-        this.Description=Description;
-        this.Scenario=Scenario;
-        this.Percentage=Percentage;
-        this.ref=ref;
+    public Sensor_info(String Description, String Scenario, double Percentage) {
+        this.Description = Description;
+        this.Scenario = Scenario;
+        this.Percentage = Percentage;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return Description;
     }
 
-    public String getScenario(){
+    public String getScenario() {
         return Scenario;
     }
 
-    public int getPercentage(){
+    public double getPercentage() {
         return Percentage;
     }
 
-    public void setPercentage(String percentage){
-        this.Percentage=Percentage;
-        //todo 숫자로 변환 코드 수정
-    }
-
-    public void setRef(int ref){
-        this.ref=ref;
-    }
-
-    public int getRef(){
-        return ref;
+    public void setPercentage(double percentage) {
+        this.Percentage = Percentage;
     }
 }
