@@ -73,7 +73,6 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
-
     public static byte [] a_enc2 = null;
     public static byte [] b_enc2 = null;
     public static byte [] c_enc2 = null;
@@ -91,6 +90,10 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
 
     private int survey_cnt=167;
     private String sensorType = "";
+
+    private String get_desc = "";
+    private double get_percentage;
+    private String get_scenario="";
 
 
     public ButtonListAdapter(Context context, ArrayList<String> data){
@@ -163,9 +166,9 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                         // 영어로 설명 바꿈
                         sensorType = "TYPE_ACCELEROMETER";
                         databaseReference.child("UX_Sensor_List").child(sensorType).child("Percentage").setValue(per_acc);
-                        sensor_func = "It detects the acceleration due to movement and can check the movement of the smartphones." +
+                        /*sensor_func = "It detects the acceleration due to movement and can check the movement of the smartphones." +
                         "It can be implemented pedometer apps and compass apps.";
-                        scenario = "Yon can't hide movement.";
+                        scenario = "Yon can't hide movement.";*/
                     }
                     else if(sensorType_num==4){
                         sensorType = "TYPE_GYROSCOPE";
@@ -199,8 +202,8 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
 
                     // 이 부분도 영어로 수정함!
                     //firebase에서 데이터 가져와서 변수에 저장하자.
-                    /*builder.setMessage("Sensor_Type : " + sensorType + "\n" + "\nDescription : \n"+sensor_func+ "\n\nPrivacy Risk : "+ scenario +
-                            "\n\nWould you like to set encryption for this sensor?\n\n" + "Statistics of encryption settings for the sensor : " + per + "%");*/
+                    builder.setMessage("Sensor_Type : " + sensorType + "\n" + "\nDescription : "+ get_desc +"\n"+ "\n\nPrivacy Risk : "+ get_scenario +
+                            "\n\nWould you like to set encryption for this sensor?\n\n" + "Statistics of encryption settings for the sensor : " + get_percentage + "%");
 
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                         @Override
@@ -246,6 +249,26 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                 }
             }
         });
+
+        //firebase 데이터 snapshot(listener)
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot sensorData : dataSnapshot.getChildren()){
+                    get_desc = sensorData.getValue().toString();
+                    get_percentage = (double)(sensorData.getValue());
+                    get_scenario = sensorData.getValue().toString();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        databaseReference.child("UX_Sensor_List").addValueEventListener(postListener);
 
         return view;
     }
