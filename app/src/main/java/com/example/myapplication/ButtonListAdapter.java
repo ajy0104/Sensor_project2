@@ -200,21 +200,6 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                         sensor_func = "";
                     }
 
-                    databaseReference.child("UX_Sensor_List").child(sensorType).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                get_desc = dataSnapshot.child("Description").getValue().toString();
-                                get_percentage = (double)(dataSnapshot.child("Percentage").getValue());
-                                get_scenario = dataSnapshot.child("Scenario").getValue().toString();
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
                     // 이 부분도 영어로 수정함!
                     //firebase에서 데이터 가져와서 변수에 저장하자.
                     builder.setMessage("Sensor_Type : " + sensorType + "\n" + "\nDescription : "+ get_desc +"\n"+ "\n\nPrivacy Risk : "+ get_scenario +
@@ -246,6 +231,21 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                             }
                             //퍼센트 계산해서 변수에 넣어주기
 
+
+                        }
+                    });
+
+                    databaseReference.child("UX_Sensor_List").child(sensorType).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            get_desc = dataSnapshot.child("Description").getValue().toString();
+                            get_percentage = (double)(dataSnapshot.child("Percentage").getValue());
+                            get_scenario = dataSnapshot.child("Scenario").getValue().toString();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
                         }
                     });
