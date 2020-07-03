@@ -88,7 +88,7 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
     public double per_light=18.7;//firebase에 있는 percentage
     public double per_step=10.3;//firebase에 있는 percentage
 
-    private int survey_cnt=167;
+    private int survey_cnt=167; //기존 설문 응답자 수
     private String sensorType = "";
 
     private String get_desc = "";
@@ -155,85 +155,37 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
 
                 if(isChecked){
                     //check 되었을 때
-                    AlertDialog.Builder builder = new AlertDialog.Builder(buttonView.getContext());
-                    builder.setTitle("Sensor Encryption Settings").setIcon(R.drawable.shield);
-                    int sensorType_num = sensor.get(position).getType(); //센서 타입 번호
-                    //String sensorType = "";
 
-                    //int percentage = 20; //나중에 데이터베이스에서 값 가져와서 넣기...
+                    int sensorType_num = sensor.get(position).getType(); //센서 타입 번호
 
                     if(sensorType_num==1){
                         // 영어로 설명 바꿈
                         sensorType = "TYPE_ACCELEROMETER";
                         databaseReference.child("UX_Sensor_List").child(sensorType).child("Percentage").setValue(per_acc);
-                        /*sensor_func = "It detects the acceleration due to movement and can check the movement of the smartphones." +
-                        "It can be implemented pedometer apps and compass apps.";
-                        scenario = "Yon can't hide movement.";*/
+
                     }
-                    else if(sensorType_num==4){
+                    else if(sensorType_num==4) {
                         sensorType = "TYPE_GYROSCOPE";
                         databaseReference.child("UX_Sensor_List").child(sensorType).child("Percentage").setValue(per_gyro);
-                        sensor_func = "그리고 물체의 회전각을 감지해 " +
-                                "레이싱 게임 앱에서 스마트폰을 기울여서 자동차의 방향을 바꿀 수 있습니다.";
-                        scenario = "당신의 휴대폰 사용 여부를 숨길 수 없습니다.";
                     }
                     else if(sensorType_num==5){
                         sensorType = "TYPE_LIGHT";
                         databaseReference.child("UX_Sensor_List").child(sensorType).child("Percentage").setValue(per_light);
-                        sensor_func = "그리고 빛의 세기를 감지하는 센서입니다.";
-                        scenario = "당신이 있는 공간의 밝기를 숨길 수 없습니다.";
+
                     }
                     else if(sensorType_num==9){
                         sensorType = "TYPE_GRAVITY";
                         databaseReference.child("UX_Sensor_List").child(sensorType).child("Percentage").setValue(per_gra);
-                        sensor_func = "그리고 축의 방향 및 중력을 감지합니다.";
-                        scenario = "당신의 휴대폰 사용 여부를 숨길 수 없습니다.";
+
                     }
                     else if(sensorType_num==19){
                         sensorType = "TYPE_STEP_COUNTER";
                         databaseReference.child("UX_Sensor_List").child(sensorType).child("Percentage").setValue(per_step);
-                        sensor_func = "그리고 사용자의 발걸음을 감지하고 카운팅하는 센서입니다.";
-                        scenario = "당신의 이동 횟수를 숨길 수 없습니다.";
                     }
                     else{
                         sensorType = "특수한 센서";
                         sensor_func = "";
                     }
-
-                    // 이 부분도 영어로 수정함!
-                    //firebase에서 데이터 가져와서 변수에 저장하자.
-                    builder.setMessage("Sensor_Type : " + sensorType + "\n" + "\nDescription : "+ get_desc +"\n"+ "\n\nPrivacy Risk : "+ get_scenario +
-                            "\n\nWould you like to set encryption for this sensor?\n\n" + "Statistics of encryption settings for the sensor : " + get_percentage + "%");
-
-                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if(sensorType.equals("TYPE_ACCELEROMETER")){
-                                // 영어로 설명 바꿈
-                                //기존의 퍼센트에 cnt곱하기 -> 카운트++ -> 카운트++한 값으로 나누기 -> 새로운 percentage.setvalue()
-                                //쌉가능
-                            }
-                            else if(sensorType.equals("TYPE_GYROSCOPE")){
-
-                            }
-                            else if(sensorType.equals("TYPE_LIGHT")){
-
-                            }
-                            else if(sensorType.equals("TYPE_GRAVITY")){
-
-                            }
-                            else if(sensorType.equals("TYPE_STEP_COUNTER")){
-
-                            }
-                            else{
-                                sensorType = "특수한 센서";
-                                sensor_func = "";
-                            }
-                            //퍼센트 계산해서 변수에 넣어주기
-
-
-                        }
-                    });
 
                     databaseReference.child("UX_Sensor_List").child(sensorType).addValueEventListener(new ValueEventListener() {
                         @Override
@@ -242,6 +194,61 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                             get_percentage = (double)(dataSnapshot.child("Percentage").getValue());
                             get_scenario = dataSnapshot.child("Scenario").getValue().toString();
 
+                            AlertDialog.Builder builder = new AlertDialog.Builder(buttonView.getContext());
+                            builder.setTitle("Sensor Encryption Settings").setIcon(R.drawable.shield);
+
+                            builder.setMessage("Sensor_Type : " + sensorType + "\n" + "\nDescription : "+ get_desc +"\n"+ "\n\nPrivacy Risk : "+ get_scenario +
+                                    "\n\nWould you like to set encryption for this sensor?\n\n" + "Statistics of encryption settings for the sensor : " + String.format("%.2f",get_percentage) + "%");
+
+                            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if(sensorType.equals("TYPE_ACCELEROMETER")){
+                                        // 영어로 설명 바꿈
+                                        //기존의 퍼센트에 cnt곱하기 -> 카운트++ -> 카운트++한 값으로 나누기 -> 새로운 percentage.setvalue()
+                                        //쌉가능
+                                        survey_cnt++;
+                                        per_acc = ((per_acc * (survey_cnt-1))/100+1)/(survey_cnt)*100;
+                                    }
+                                    else if(sensorType.equals("TYPE_GYROSCOPE")){
+                                        survey_cnt++;
+                                        per_gyro = ((per_acc * (survey_cnt-1))/100+1)/(survey_cnt)*100;
+
+                                    }
+                                    else if(sensorType.equals("TYPE_LIGHT")){
+                                        survey_cnt++;
+                                        per_light = ((per_acc * (survey_cnt-1))/100+1)/(survey_cnt)*100;
+
+                                    }
+                                    else if(sensorType.equals("TYPE_GRAVITY")){
+                                        survey_cnt++;
+                                        per_gra = ((per_acc * (survey_cnt-1))/100+1)/(survey_cnt)*100;
+
+                                    }
+                                    else if(sensorType.equals("TYPE_STEP_COUNTER")){
+                                        survey_cnt++;
+                                        per_step = ((per_acc * (survey_cnt-1))/100+1)/(survey_cnt)*100;
+
+                                    }
+                                    else{
+                                        sensorType = "특수한 센서";
+                                        sensor_func = "";
+                                    }
+                                    //퍼센트 계산해서 변수에 넣어주기
+
+
+                                }
+                            });
+
+                            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //스위치 off
+                                    buttonView.setChecked(!isChecked);
+                                }
+                            });
+                            builder.show();
+
                         }
 
                         @Override
@@ -249,40 +256,12 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
 
                         }
                     });
-
-                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //스위치 off
-                            buttonView.setChecked(!isChecked);
-                        }
-                    });
-                    builder.show();
                 }
                 else{
                     //check 되어있지 않을 때
                 }
             }
         });
-
-        //firebase 데이터 snapshot(listener)
-
-        /*databaseReference.child("UX_Sensor_List").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Sensor_info sensor_info = dataSnapshot.getValue(Sensor_info.class);
-                get_desc = sensor_info.getDescription();
-                get_percentage = sensor_info.getPercentage();
-                get_scenario = sensor_info.getScenario();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
-
         return view;
     }
 
