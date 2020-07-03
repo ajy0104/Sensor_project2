@@ -157,7 +157,7 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                         // 영어로 설명 바꿈
                         sensorType = "TYPE_ACCELEROMETER";
                         //databaseReference.child(sensorType).child("Percentage").setValue(12.1);
-                        databaseReference.child("UX_Sensor_List").push().setValue("12.1");
+                        databaseReference.child("UX_Sensor_List").push().setValue("13");
                         sensor_func = "It detects the acceleration due to movement and can check the movement of the smartphones." +
                         "It can be implemented pedometer apps and compass apps.";
                         scenario = "Yon can't hide movement.";
