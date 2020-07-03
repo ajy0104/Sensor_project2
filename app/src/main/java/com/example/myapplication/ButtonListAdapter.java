@@ -136,6 +136,8 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
         });
 
         switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            //여기에 snapshot찍고 데이터 가져오면 되지 않을까?!
             @Override
             public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
 
