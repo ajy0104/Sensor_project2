@@ -69,17 +69,20 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
     private String str_default="일반적인 센서가 아닙니다.";
     //public static String dec_string = "";
     private Switch switchView;
+    private String data_sensorName=""; //firebase에서 접근할 이름변수
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
     //
+
 
     public static byte [] a_enc2 = null;
     public static byte [] b_enc2 = null;
     public static byte [] c_enc2 = null;
 
     public String sensor_func = "";
-    public double percentage = 12.1;
+    //public double percentage = 12.1;
+    public double per;
     public String scenario="";
 
     public static int s_position=0;
@@ -153,12 +156,15 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
                     if(sensorType_num==1){
                         // 영어로 설명 바꿈
                         sensorType = "TYPE_ACCELEROMETER";
+                        //databaseReference.child(sensorType).child("Percentage").setValue(12.1);
+                        databaseReference.child("UX_Sensor_List").push().setValue("12.1");
                         sensor_func = "It detects the acceleration due to movement and can check the movement of the smartphones." +
                         "It can be implemented pedometer apps and compass apps.";
                         scenario = "Yon can't hide movement.";
                     }
                     else if(sensorType_num==4){
                         sensorType = "TYPE_GYROSCOPE";
+                        databaseReference.child(sensorType);
                         sensor_func = "그리고 물체의 회전각을 감지해 " +
                                 "레이싱 게임 앱에서 스마트폰을 기울여서 자동차의 방향을 바꿀 수 있습니다.";
                         scenario = "당신의 휴대폰 사용 여부를 숨길 수 없습니다.";
@@ -186,7 +192,7 @@ public class ButtonListAdapter extends BaseAdapter implements SensorEventListene
 
                     // 이 부분도 영어로 수정함!
                     builder.setMessage("Sensor_Type : " + sensorType + "\n" + "\nDescription : \n"+sensor_func+ "\n\nPrivacy Risk : "+ scenario +
-                            "\n\nWould you like to set encryption for this sensor?\n\n" + "Statistics of encryption settings for the sensor : " + percentage + "%");
+                            "\n\nWould you like to set encryption for this sensor?\n\n" + "Statistics of encryption settings for the sensor : " + per + "%");
 
                     builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                         @Override
