@@ -60,6 +60,8 @@ public class mediumActivity extends AppCompatActivity implements SensorEventList
 
     private String sensing_date=null;
 
+    public static boolean bool[];
+
 
     private String str_default="일반적인 센서가 아닙니다.";
 
@@ -79,6 +81,8 @@ public class mediumActivity extends AppCompatActivity implements SensorEventList
         sm = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         sensor = sm.getSensorList(Sensor.TYPE_ALL); //센서 장치목록 저장
 
+        bool = new boolean[sensor.size()];
+
         mAccelerometer = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER); //1
         mGyroscope = sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE); //4
         mLight = sm.getDefaultSensor(Sensor.TYPE_LIGHT); //5
@@ -92,6 +96,7 @@ public class mediumActivity extends AppCompatActivity implements SensorEventList
         }
 
         sensorList = findViewById(R.id.sensorLIst);
+        //ButtonListAdapter buttonListAdapter = new ButtonListAdapter(this, sensorData);
         ButtonListAdapter buttonListAdapter = new ButtonListAdapter(this, sensorData);
 
         sensorList.setAdapter(buttonListAdapter);
